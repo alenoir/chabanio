@@ -18,7 +18,9 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
+    dist: 'dist',
+    temp: '.tmp',
+    test: 'test'
   };
 
   // Define the configuration for all the tasks
@@ -56,10 +58,15 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
+          '<%= yeoman.app %>/{,*/,*/*/}*.{html, haml}',
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      },
+
+      haml: {
+        files: ['<%= yeoman.app %>/{,*/,*/*/}*.haml'],
+        tasks: ['haml:dist']
       }
     },
 
@@ -370,12 +377,15 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
+        'haml:dist',
         'compass:server'
       ],
       test: [
+        'haml:test',
         'compass'
       ],
       dist: [
+        'haml:dist',
         'compass:dist',
         'imagemin',
         'svgmin'
@@ -388,8 +398,39 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    haml: {
+      options: {
+        doubleQuoteAttributes: true,
+        escapeHtml: true,
+        unixNewlines: true,
+      },
+      dist: {
+        files: [{
+            expand: true,
+            cwd: '<%= yeoman.app %>',
+            src: '{,*/,*/*/}*.haml',
+            dest: '<%= yeoman.temp %>',
+            ext: '.html',
+          }
+        ]
+      },
+      test: {
+        files: [{
+            expand: true,
+            cwd: '<%= yeoman.test %>',
+            src: '{,*/*/}*.haml',
+            dest: '<%= yeoman.temp %>',
+            ext: '.html'
+          }
+        ]
+      }
     }
   });
+
+  grunt.loadNpmTasks('grunt-haml');
+
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
@@ -422,6 +463,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'haml:dist' ,
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
