@@ -66,7 +66,7 @@ module.exports = function (grunt) {
 
       haml: {
         files: ['<%= yeoman.app %>/{,*/,*/*/}*.haml'],
-        tasks: ['haml:dist']
+        tasks: ['haml:server']
       }
     },
 
@@ -377,7 +377,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'haml:dist',
+        'haml:server',
         'compass:server'
       ],
       test: [
@@ -406,12 +406,22 @@ module.exports = function (grunt) {
         escapeHtml: true,
         unixNewlines: true,
       },
-      dist: {
+      server: {
         files: [{
             expand: true,
             cwd: '<%= yeoman.app %>',
             src: '{,*/,*/*/}*.haml',
             dest: '<%= yeoman.temp %>',
+            ext: '.html',
+          }
+        ]
+      },
+      dist: {
+        files: [{
+            expand: true,
+            cwd: '<%= yeoman.app %>',
+            src: '{,*/,*/*/}*.haml',
+            dest: '<%= yeoman.dist %>',
             ext: '.html',
           }
         ]
