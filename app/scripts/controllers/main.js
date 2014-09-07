@@ -8,10 +8,7 @@
  * Controller of the instamozappApp
  */
 angular.module('instamozappApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, $http) {
+    console.log(require('cheerio').load('<div ng-include="\'views/main.html\'"></div>').html());
+
   });
