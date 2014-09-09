@@ -29,11 +29,6 @@ angular.module('instamozappApp')
       });
     });
 
-    $scope.moveToAbout = function(){
-      console.log('ok');
-      return false;
-      //$(".main").moveTo(3);
-    }
 
     $scope.state = 'default';
     Restangular.all('actions').getList().then(function(actions) {
@@ -49,7 +44,8 @@ angular.module('instamozappApp')
         $scope.answer = 'non';
         $scope.phrase = 'Le pont Chaban Delmas est fermé';
         var endDate = moment(action.end);
-        var nowDate = moment('2014-10-04 16:12');
+        var nowDate = moment();
+        //var nowDate = moment('2014-10-04 16:12');
         var diffWithEnd = endDate.diff(nowDate);
         console.log(diffWithEnd);
         $scope.timeToEndHours = moment.duration(diffWithEnd).get('hours');
@@ -57,6 +53,10 @@ angular.module('instamozappApp')
 
         $scope.percentComplete = diffWithEnd/parseInt(action.time_close)*100;
         console.log(action.time_close);
+
+        // middle brige top (20px to 60px)
+
+        //$scope.topMiddleBridge = 60-(40*$scope.percentComplete);
 
       }
       else {
@@ -79,9 +79,9 @@ angular.module('instamozappApp')
       $scope.dateEnd = dateEnd.format('LL');
 
       for(var i=0;i<actions.length;i++) {
-        var percentDiff = actions[i].time_close/$scope.lengthTime*100;
-        console.log(percentDiff);
-        actions[i].percentDiff = percentDiff;
+        actions[i].date = moment(actions[i].beggin).format('D MMMM');
+        actions[i].timeStart = moment(actions[i].beggin).format('HH[h]mm');
+        actions[i].timeEnd = moment(actions[i].end).format('HH[h]mm');
       }
     }
     //console.log($scope.actions);

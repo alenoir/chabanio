@@ -1,34 +1,62 @@
 %div.main
-  %div.section
-    %div.content(class="{{state}}")
-      %div.answer(ng-hide="isOpen")
-        %h1.title Non
-        %p.phrase LE PONT CHABAN DELMAS EST FERMÉ
-        %div.loader
-          %div.progress 
-            %div.text-wrapper
-              %p.text 
-                %i.fa.fa-warning
-                &nbsp;&nbsp;&nbsp;
-                Réouverture dans {{ timeToEndHours }}h{{ timeToEndMinutes }}
-            %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
+  %div.section      
+    %div.content(ng-hide="isOpen")
+      %div.bridge-wrapper.closed
+        %div.bridge
+          %img.bridge-closed(ng-src="images/bridge-closed.svg")
+          %img.bridge-middle-closed(ng-src="images/bridge-middle-closed.svg" )
+      %div.answer-wrapper.closed
+        %div.answer
+          %h1.title Non
+          %p.phrase LE PONT CHABAN DELMAS EST FERMÉ
+          %div.loader
+            %div.progress 
+              %div.text-wrapper
+                %p.text 
+                  %i.fa.fa-warning
+                  &nbsp;&nbsp;&nbsp;
+                  Réouverture dans {{ timeToEndHours }}h{{ timeToEndMinutes }}
+              %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
+      %div.boat-wrapper.closed
+        %p.text Actuellement
+        %p.boat-name {{ boatNames.join(' et ') }}
+        %p.fa.fa-anchor.circled
+        %div.dashed-content
 
-      %div.answer(ng-show="isOpen")
-        %h1.title oui
-        %p.phrase Le pont Chaban Delmas est ouvert
-        %div.loader
-          %div.progress 
-            %div.text-wrapper
-              %p.text 
-                Prochaine fermeture dans {{ timeToEndHours }}h{{ timeToEndMinutes }}
-            %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
-              
+    %div.content.opened(ng-show="isOpen")
+      %div.bridge-wrapper.opened
+        %div.bridge
+          %img.bridge-closed(ng-src="images/bridge-closed.svg")
+          %img.bridge-middle-opened(ng-src="images/bridge-middle-closed.svg" )
+      %div.answer-wrapper.opened
+        %div.answer
+          %h1.title Oui
+          %p.phrase Le pont Chaban Delmas est ouvert
+          -# %div.loader
+          -#   %div.progress 
+          -#     %div.text-wrapper
+          -#       %p.text 
+          -#         %i.fa.fa-warning
+          -#         &nbsp;&nbsp;&nbsp;
+          -#         Réouverture dans {{ timeToEndHours }}h{{ timeToEndMinutes }}
+          -#     %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
+
+      %div.boat-wrapper.opened
+        -# %p.text Actuellement
+        -# %p.boat-name {{ boatNames.join(' et ') }}
+        -# %p.fa.fa-anchor.circled
+        -# %div.dashed-content
+
   %div.section
     %div.timeline
-      %p start : {{dateStart}}, end : {{dateEnd}}
-      %ul 
-        %li.item{ng-repeat: "action in actions"} 
-          %h3.title {{ action.boat_name }}
-          %div.time{style: "width:{{action.percentDiff}}%;"} {{action.percentDiff}}
-  %div.section.about
-    %h2 À propos
+      %div.radian-bottom
+      %div.boat-wrapper{ng-repeat: "action in actions"} 
+        %div.time 
+          %p.date Le {{ action.date}}
+          %p.range entre {{ action.timeStart }} et {{ action.timeEnd }}  
+        %div.picto
+          %i.fa.fa-anchor.circled
+        %p.boat-name {{ action.boat_name }}
+        %div.clearfix
+  -# %div.section.about
+  -#   %h2 À propos
