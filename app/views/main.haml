@@ -1,8 +1,34 @@
-%p Base template with :
-%ul 
-  %li AngularJs
-  %li Grunt
-  %li Bower
-  %li Bootstrap 3
-  %li SCSS - Compass
-  %li HAML
+%div.main
+  %div.section
+    %div.content(class="{{state}}")
+      %div.answer(ng-hide="isOpen")
+        %h1.title Non
+        %p.phrase LE PONT CHABAN DELMAS EST FERMÉ
+        %div.loader
+          %div.progress 
+            %div.text-wrapper
+              %p.text 
+                %i.fa.fa-warning
+                &nbsp;&nbsp;&nbsp;
+                Réouverture dans {{ timeToEndHours }}h{{ timeToEndMinutes }}
+            %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
+
+      %div.answer(ng-show="isOpen")
+        %h1.title oui
+        %p.phrase Le pont Chaban Delmas est ouvert
+        %div.loader
+          %div.progress 
+            %div.text-wrapper
+              %p.text 
+                Prochaine fermeture dans {{ timeToEndHours }}h{{ timeToEndMinutes }}
+            %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
+              
+  %div.section
+    %div.timeline
+      %p start : {{dateStart}}, end : {{dateEnd}}
+      %ul 
+        %li.item{ng-repeat: "action in actions"} 
+          %h3.title {{ action.boat_name }}
+          %div.time{style: "width:{{action.percentDiff}}%;"} {{action.percentDiff}}
+  %div.section.about
+    %h2 À propos
