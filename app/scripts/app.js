@@ -16,16 +16,11 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'restangular'
+    'restangular',
+    'config'
   ])
-  .config(function(RestangularProvider) {
-    //RestangularProvider.setBaseUrl('http://api-chaban-io.herokuapp.com');
-    if(process.env.NODE_ENV == 'production') {
-      RestangularProvider.setBaseUrl('http://api-chaban-io.herokuapp.com/');
-    }
-    else {
-      RestangularProvider.setBaseUrl('http://localhost:1337');
-    }
+  .config(function(RestangularProvider, ENV) {      
+    RestangularProvider.setBaseUrl(ENV.api_endpoint);
   })
   .config(function ($routeProvider) {
     $routeProvider

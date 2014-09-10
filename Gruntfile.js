@@ -26,6 +26,34 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    ngconstant: {
+      options: {
+        dest: '.tmp/scripts/config.js',
+        name: 'config',
+        constants: {
+          title: 'grunt-ng-constant',
+          debug: true
+        }
+      },
+      development: {
+        constants: {
+          ENV: {
+            name: 'development',
+            api_endpoint: 'http://localhost:1337',
+          }
+        }
+      },
+      production: {
+        constants: {
+          ENV: {
+            name: 'production',
+            api_endpoint: 'http://api-chaban-io.herokuapp.com',
+          }
+        }
+      }
+    },
+
+
     // Project settings
     yeoman: appConfig,
 
@@ -440,6 +468,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-haml');
+  grunt.loadNpmTasks('grunt-ng-constant');
 
 
 
@@ -450,6 +479,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:development',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -473,6 +503,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production',
     'haml:dist' ,
     'wiredep',
     'useminPrepare',
