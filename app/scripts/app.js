@@ -20,7 +20,12 @@ angular
   ])
   .config(function(RestangularProvider) {
     //RestangularProvider.setBaseUrl('http://api-chaban-io.herokuapp.com');
-    RestangularProvider.setBaseUrl('http://localhost:1337');
+    if(process.env.NODE_ENV == 'production') {
+      RestangularProvider.setBaseUrl('http://api-chaban-io.herokuapp.com/');
+    }
+    else {
+      RestangularProvider.setBaseUrl('http://localhost:1337');
+    }
   })
   .config(function ($routeProvider) {
     $routeProvider
