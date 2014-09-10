@@ -32,20 +32,16 @@
         %div.answer
           %h1.title Oui
           %p.phrase Le pont Chaban Delmas est ouvert
-          -# %div.loader
-          -#   %div.progress 
-          -#     %div.text-wrapper
-          -#       %p.text 
-          -#         %i.fa.fa-warning
-          -#         &nbsp;&nbsp;&nbsp;
-          -#         Réouverture dans {{ timeToEndHours }}h{{ timeToEndMinutes }}
-          -#     %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
-
       %div.boat-wrapper.opened
-        -# %p.text Actuellement
-        -# %p.boat-name {{ boatNames.join(' et ') }}
-        -# %p.fa.fa-anchor.circled
-        -# %div.dashed-content
+        %p.text Prochaine fermeture le&nbsp;
+          %b {{ nextBoat.date }}&nbsp;
+          entre&nbsp;
+          %b {{ nextBoat.timeBegin }}&nbsp;
+          et&nbsp;
+          %b {{ nextBoat.timeEnd }}
+        %p.boat-name {{ nextBoat.boatNames.join(' et ') }}
+        %p.fa.fa-anchor.circled
+        %div.dashed-content
 
   %div.section
     %div.timeline
@@ -56,7 +52,7 @@
           %p.range entre {{ action.timeStart }} et {{ action.timeEnd }}  
         %div.picto
           %i.fa.fa-anchor.circled
-        %p.boat-name {{ action.boat_name }}
+        %p.boat-name {{ action.boatName }}
         %div.clearfix
   -# %div.section.about
   -#   %h2 À propos

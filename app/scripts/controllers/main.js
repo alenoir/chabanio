@@ -11,6 +11,10 @@
 angular.module('instamozappApp')
   .controller('MainCtrl', function ($scope, Restangular) {
     moment.locale('fr');
+    $scope.isOpen = true;
+    var nowDate = moment();
+    //var nowDate = moment('2014-10-04 16:12');
+
     $(function () {
       $(".main").onepage_scroll({
          sectionContainer: ".section",     // sectionContainer accepts any kind of selector in case you don't want to use section
@@ -32,8 +36,14 @@ angular.module('instamozappApp')
 
 
     $scope.state = 'default';
-    Restangular.all('actions').getList().then(function(actions) {
+    Restangular.all('actions/next').getList().then(function(actions) {
       $scope.actions = actions;
+      actions[0].boatNames = actions[0].boatName.split(' - ');
+      actions[0].date = moment(actions[0].begin).locale('fr').format('D MMMM');
+      actions[0].timeBegin = moment(actions[0].begin).format('HH[h]mm');
+      actions[0].timeEnd = moment(actions[0].end).format('HH[h]mm');
+      $scope.nextBoat = actions[0];
+
       buildTimeline(actions);
     });
 
@@ -45,15 +55,14 @@ angular.module('instamozappApp')
         $scope.answer = 'non';
         $scope.phrase = 'Le pont Chaban Delmas est fermé';
         var endDate = moment(action.end);
-        var nowDate = moment();
         //var nowDate = moment('2014-10-04 16:12');
         var diffWithEnd = endDate.diff(nowDate);
         console.log(diffWithEnd);
         $scope.timeToEndHours = moment.duration(diffWithEnd).get('hours');
         $scope.timeToEndMinutes = moment.duration(diffWithEnd).get('minutes');
 
-        $scope.percentComplete = diffWithEnd/parseInt(action.time_close)*100;
-        console.log(action.time_close);
+        $scope.percentComplete = diffWithEnd/parseInt(action.timeClose)*100;
+        console.log(action.timeClose);
 
         // middle brige top (20px to 60px)
 
@@ -65,23 +74,16 @@ angular.module('instamozappApp')
         $scope.answer = 'oui';
         $scope.phrase = 'Le pont Chaban Delams est ouvert';
       }
-      $scope.beggin = action.beggin;
+      $scope.begin = action.begin;
       $scope.end = action.end;
       $scope.boatNames = action.boatNames;
     });
 
     function buildTimeline(actions) {
-      var m = moment();
-      var dateStart = m.subtract(3, 'days');
-      var dateEnd = m.add(3, 'days');
-      $scope.lengthTime = dateEnd.diff(dateStart);
-
-      $scope.dateStart = dateStart.format('LL');
-      $scope.dateEnd = dateEnd.format('LL');
 
       for(var i=0;i<actions.length;i++) {
-        actions[i].date = moment(actions[i].beggin).format('D MMMM');
-        actions[i].timeStart = moment(actions[i].beggin).format('HH[h]mm');
+        actions[i].date = moment(actions[i].begin).format('D MMMM');
+        actions[i].timeStart = moment(actions[i].begin).format('HH[h]mm');
         actions[i].timeEnd = moment(actions[i].end).format('HH[h]mm');
       }
     }

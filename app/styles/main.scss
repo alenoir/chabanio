@@ -143,7 +143,7 @@ section {
         border-color:  #0F7F61;
       }
       .answer {
-        height:50px;
+        height:200px;
       }
     }
     &.closed {
@@ -170,8 +170,6 @@ section {
     .fa-anchor {
       position: relative;
       margin-top:5px;
-      
-
     }
     .dashed-content {
       height:25%;
@@ -189,6 +187,9 @@ section {
     
     &.opened {
       background:  #16c495;
+      .fa-anchor {
+        background: #00aff4;
+      }
     }
     &.closed {
       background: #c44316;
