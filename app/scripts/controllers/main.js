@@ -44,8 +44,8 @@ angular.module('instamozappApp')
         $scope.answer = 'non';
         $scope.phrase = 'Le pont Chaban Delmas est fermé';
         var endDate = moment(action.end);
-        //var nowDate = moment();
-        var nowDate = moment('2014-10-04 16:12');
+        var nowDate = moment();
+        //var nowDate = moment('2014-10-04 16:12');
         var diffWithEnd = endDate.diff(nowDate);
         console.log(diffWithEnd);
         $scope.timeToEndHours = moment.duration(diffWithEnd).get('hours');
