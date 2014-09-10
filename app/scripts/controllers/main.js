@@ -10,7 +10,7 @@
 
 angular.module('instamozappApp')
   .controller('MainCtrl', function ($scope, Restangular) {
-    moment().locamoment.locale('fr');
+    moment.locale('fr');
     $(function () {
       $(".main").onepage_scroll({
          sectionContainer: ".section",     // sectionContainer accepts any kind of selector in case you don't want to use section
