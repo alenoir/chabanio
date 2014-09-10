@@ -10,6 +10,7 @@
 
 angular.module('instamozappApp')
   .controller('MainCtrl', function ($scope, Restangular) {
+    moment().
     $(function () {
       $(".main").onepage_scroll({
          sectionContainer: ".section",     // sectionContainer accepts any kind of selector in case you don't want to use section
@@ -84,5 +85,6 @@ angular.module('instamozappApp')
         actions[i].timeEnd = moment(actions[i].end).format('HH[h]mm');
       }
     }
+    
     //console.log($scope.actions);
   });
