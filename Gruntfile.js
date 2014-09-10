@@ -26,9 +26,11 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    // Project settings
+    yeoman: appConfig,
+
     ngconstant: {
       options: {
-        dest: '.tmp/scripts/config.js',
         name: 'config',
         constants: {
           title: 'grunt-ng-constant',
@@ -36,6 +38,9 @@ module.exports = function (grunt) {
         }
       },
       development: {
+        options: {
+          dest: '<%= yeoman.temp %>/scripts/config.js'
+        },
         constants: {
           ENV: {
             name: 'development',
@@ -44,6 +49,9 @@ module.exports = function (grunt) {
         }
       },
       production: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/config.js'
+        },
         constants: {
           ENV: {
             name: 'production',
@@ -52,10 +60,6 @@ module.exports = function (grunt) {
         }
       }
     },
-
-
-    // Project settings
-    yeoman: appConfig,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
