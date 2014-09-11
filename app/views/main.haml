@@ -26,19 +26,19 @@
     %div.content.opened(ng-show="isOpen")
       %div.bridge-wrapper.opened
         %div.bridge
-          %img.bridge-closed(ng-src="images/bridge-closed.svg")
+          %img.bridge-closed(ng-src="images/bridge-open.svg")
           %img.bridge-middle-opened(ng-src="images/bridge-middle-closed.svg" )
       %div.answer-wrapper.opened
         %div.answer
           %h1.title Oui
           %p.phrase Le pont Chaban Delmas est ouvert
+          %div.text-wrapper
+            %p.text 
+              %i.fa.fa-warning
+              &nbsp;&nbsp;
+              Prochaine fermeture le {{ nextBoat.date }} entre {{ nextBoat.timeBegin }} et {{ nextBoat.timeEnd }}
       %div.boat-wrapper.opened
-        %p.text Prochaine fermeture le&nbsp;
-          %b {{ nextBoat.date }}&nbsp;
-          entre&nbsp;
-          %b {{ nextBoat.timeBegin }}&nbsp;
-          et&nbsp;
-          %b {{ nextBoat.timeEnd }}
+        %p.title Prochain bateau
         %p.boat-name {{ nextBoat.boatNames.join(' et ') }}
         %p.fa.fa-anchor.circled
         %div.dashed-content
@@ -54,5 +54,26 @@
           %i.fa.fa-anchor.circled
         %p.boat-name {{ action.boatName }}
         %div.clearfix
-  -# %div.section.about
-  -#   %h2 À propos
+  %div.section.about
+    %div.person-wrapper
+      %div.person.pull-left
+        %img.avatar(ng-src="images/avatar-antoine.png")
+        %h2.name Antoine L.
+        %h3.title Captaine Dev
+        %p.social
+          %a(href="https://twitter.com/antoinelenoir")
+            %i.fa.fa-twitter
+          &nbsp;&nbsp;&nbsp;
+          %a(href="https://github.com/alenoir")
+            %i.fa.fa-github
+      %div.person.pull-right
+        %img.avatar(ng-src="images/avatar-mourad.png")
+        %h2.name Mourad M.
+        %h3.title Amiral Design
+        %p.social
+          %a(href="https://twitter.com/antoinelenoir")
+            %i.fa.fa-twitter
+          &nbsp;&nbsp;&nbsp;
+          %a(href="https://dribbble.com/tawak")
+            %i.fa.fa-dribbble
+          

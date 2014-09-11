@@ -87,19 +87,20 @@ section {
   .answer-wrapper {
     position:relative;
     height:45%;
+    text-transform: uppercase;
     .answer {
       margin: auto;
-      max-width:470px;
-      height:280px;
+      max-width:560px;
+      height:230px;
       position: absolute;
       top: 0; left: 0; bottom: 0; right: 0;
       text-align:center;
       color:#FFF;
       .title {
-      font-size:6em;
+        font-size:6em;
         font-weight: bold; 
         text-transform: uppercase;
-        margin-bottom:20px;
+        margin:0px;
       }
       .phrase {
         font-size:1em;
@@ -123,9 +124,10 @@ section {
           width: 100%;
           .text {
             color:  #ffffff;
-            font-size: 16px; /* Approximation causée par une substitution de police */
+            font-size: 16px;
             font-weight: 400;
             line-height: 48px;
+            text-transform: uppercase;
           }
         }
         .progress-bar {
@@ -137,14 +139,27 @@ section {
 
     }
     &.opened {
+      .text-wrapper {
+        background: #16c495;
+        position: relative;
+        margin:auto;
+        border-radius: 8px;
+        border-width: 3px;
+        border-color:  #0F7F61;
+        border-style: solid;
+        padding:20px 20px;
+        .text {
+          margin: 0;
+          font-size: 14px;
+        }
+      }
       background: #16c495;
       .progress {
         background: #16c495;
         border-color:  #0F7F61;
+        
       }
-      .answer {
-        height:200px;
-      }
+
     }
     &.closed {
       background: #c44316;
@@ -152,19 +167,24 @@ section {
   }
 
   .boat-wrapper {
+    overflow: hidden;
     height:25%;
     text-align: center;
     position: relative;
+    text-transform: uppercase;
+    color:  #ffffff;
     .text {
       color:  #ffffff;
       font-size: 12px;
       font-weight: 400;
 
     }
+    .title {
+      font-size: 12px;
+    }
     .boat-name {
-      color:  #ffffff;
       font-size: 16px;
-      font-weight: 400;
+      font-weight: bold;
 
     }
     .fa-anchor {
@@ -172,7 +192,7 @@ section {
       margin-top:5px;
     }
     .dashed-content {
-      height:25%;
+      height:65%;
       position: relative;
       &:after {
         content:"";
@@ -187,8 +207,11 @@ section {
     
     &.opened {
       background:  #16c495;
+      .dashed-content::after {
+        border-left: 2px dashed #139370;
+      }
       .fa-anchor {
-        background: #00aff4;
+        background: #139370;
       }
     }
     &.closed {
@@ -205,6 +228,7 @@ section {
 }
 
 .timeline {
+  z-index: 11;
   .boat-wrapper {
     width:100%;
     margin: 50px auto 100px;
@@ -266,8 +290,42 @@ section {
 }
 
 .about {
-  background-color: #00aff4;
+  background-color: #56caf8;
   z-index: 30;
+  .person-wrapper {
+    margin: auto;
+    max-width:560px;
+    height:230px;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    .person {
+      text-align:center;
+      .avatar {
+
+      }
+      .name {
+        color:  #194c60;
+        font-size: 26px;
+        font-weight: 400;
+        line-height: 24px;
+        margin-bottom:0;
+      }
+      .title {
+        color:  #194c60;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 24px;
+        margin:0 0 7px;
+      }
+      .social {
+        color:  #2a8eb5;
+        font-size: 23px;
+        font-weight: 400;
+        line-height: 44px;
+      }
+    }
+  }
+    
 }
 .fa-anchor {
   color:#FFFFFF;
