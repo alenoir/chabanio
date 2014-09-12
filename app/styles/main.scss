@@ -57,14 +57,15 @@ section {
     position: relative;
     .bridge {
       margin: auto;
-      max-width:470px;
+      max-width:450px;
       height:110px;
       position: absolute;
       top: 0; left: 0; bottom: 0; right: 0;
+      text-align:center;
       [class*='bridge-'] {
-        position: absolute;
+        width:90%;
       }
-      .bridge-middle-closed {
+      .bridge-closed {
         left:162px;
         top:20px;
       }
@@ -72,6 +73,7 @@ section {
         left:162px;
         top:60px;
       }
+      img {}
     }
 
     &.opened {
@@ -86,16 +88,17 @@ section {
   }
   .answer-wrapper {
     position:relative;
-    height:45%;
+    height:50%;
     text-transform: uppercase;
     .answer {
       margin: auto;
-      max-width:560px;
+      max-width:600px;
       height:230px;
       position: absolute;
       top: 0; left: 0; bottom: 0; right: 0;
       text-align:center;
       color:#FFF;
+      padding: 0 20px;
       .title {
         font-size:6em;
         font-weight: bold; 
@@ -168,7 +171,7 @@ section {
 
   .boat-wrapper {
     overflow: hidden;
-    height:25%;
+    height:20%;
     text-align: center;
     position: relative;
     text-transform: uppercase;
@@ -300,6 +303,7 @@ section {
     top: 0; left: 0; bottom: 0; right: 0;
     .person {
       text-align:center;
+      margin:0 30px;
       .avatar {
 
       }
