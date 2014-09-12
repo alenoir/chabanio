@@ -1,3 +1,5 @@
+require('newrelic');
+
 var gzippo = require('gzippo');
 var morgan = require('morgan');
 var express = require('express');

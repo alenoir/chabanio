@@ -7,6 +7,7 @@
     "grunt-ng-constant": "^1.0.0",
     "gzippo": "~0.2.0",
     "morgan": "~1.2.2",
+    "newrelic": "^1.11.1",
     "restangular": "^1.4.0"
   },
   "devDependencies": {
