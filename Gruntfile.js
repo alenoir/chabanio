@@ -29,6 +29,19 @@ module.exports = function (grunt) {
     // Project settings
     yeoman: appConfig,
 
+    bump: {
+      options: {
+        commit: true,
+        commitMessage: 'Bumped version to v%VERSION%',
+        commitFiles: ['package.json'],
+        createTag: true,
+        tagName: 'v%VERSION%',
+        tagMessage: 'Version %VERSION%',
+        push: true,
+        pushTo: 'origin'
+      }
+    },
+
     ngconstant: {
       options: {
         name: 'config',
@@ -478,7 +491,7 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-haml');
   grunt.loadNpmTasks('grunt-ng-constant');
-
+  grunt.loadNpmTasks('grunt-bump');
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
