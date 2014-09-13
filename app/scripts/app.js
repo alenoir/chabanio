@@ -17,10 +17,16 @@ angular
     'ngSanitize',
     'ngTouch',
     'restangular',
-    'config'
+    'config',
+    'facebook'
   ])
   .config(function(RestangularProvider, ENV) {      
     RestangularProvider.setBaseUrl(ENV.api_endpoint);
+  })
+  .config(function(FacebookProvider) {
+     // Set your appId through the setAppId method or
+     // use the shortcut in the initialize method directly.
+     FacebookProvider.init('599110736865930');
   })
   .config(function ($routeProvider) {
     $routeProvider
