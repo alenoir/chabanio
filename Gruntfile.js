@@ -68,7 +68,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            api_endpoint: 'http://api-chaban-io.herokuapp.com',
+            api_endpoint: 'http://apichaban.alenoir.com',
           }
         }
       }

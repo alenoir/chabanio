@@ -9,18 +9,9 @@
  */
 
 angular.module('instamozappApp')
-  .controller('HeaderCtrl', function ($scope, Restangular) {
-    $scope.shareFb = function(){
-      FB.ui({
-        method: 'feed',
-        link: 'http://estcequelepontchabanestouvert.fr/#/',
-      }, function(response){});
-      return false;
-    };
+  .controller('HeaderCtrl', function ($scope) {
 
-    $scope.moveToAbout = function(){
-      $(".main").moveTo(3);
-    };
+
   })
   .controller('MainCtrl', function ($scope, Restangular) {
     moment.locale('fr');
