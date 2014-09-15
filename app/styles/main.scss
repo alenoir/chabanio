@@ -5,6 +5,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 @import "compass/css3/box-shadow";
+@import "compass/css3/opacity";
 
 /* Space out content a bit */
 body {
@@ -31,7 +32,17 @@ body {
       cursor: pointer;
     }
   }
+  .wrapper-social-button {
+    @include opacity(0.5);
 
+    div {
+      float: left;
+      margin-right:10px;
+    }
+    &:hover {
+      @include opacity(1);
+    }
+  }
   .social-link {
     margin:40px 60px 0 0;
     li {
