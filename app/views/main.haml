@@ -14,7 +14,7 @@
                 %p.text 
                   %i.fa.fa-warning
                   &nbsp;&nbsp;&nbsp;
-                  Réouverture dans {{ timeToEndHours }}h{{ timeToEndMinutes }}
+                  Réouverture dans {{ timeCount }}
               %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
       %div.boat-wrapper.closed
         %p.text Actuellement
@@ -34,7 +34,7 @@
             %p.text 
               %i.fa.fa-warning
               &nbsp;&nbsp;
-              Prochaine fermeture le {{ nextBoat.date }} entre {{ nextBoat.timeBegin }} et {{ nextBoat.timeEnd }}
+              Prochaine fermeture le {{ nextBoat.date }} de {{ nextBoat.timeBegin }} à {{ nextBoat.timeEnd }}
       %div.boat-wrapper.opened
         %p.title Prochain bateau
         %p.boat-name {{ nextBoat.boatNames.join(' et ') }}
@@ -47,7 +47,7 @@
       %div.boat-wrapper{ng-repeat: "action in actions"} 
         %div.time 
           %p.date Le {{ action.date}}
-          %p.range entre {{ action.timeStart }} et {{ action.timeEnd }}  
+          %p.range de {{ action.timeStart }} à {{ action.timeEnd }}  
         %div.picto
           %i.fa.fa-anchor.circled
         %p.boat-name {{ action.boatName }}

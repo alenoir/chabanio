@@ -50,15 +50,14 @@ angular.module('instamozappApp')
       if(action.state === 'closed') {
         $scope.isOpen = false;
         $scope.answer = 'non';
-        $scope.phrase = 'Le pont Chaban Delmas est fermé';
-        var endDate = moment(action.end);
-        //var nowDate = moment('2014-10-04 16:12');
+        $scope.phrase = 'Le pont Chaban-Delmas est fermé';
+        var endDate = moment(action.end).zone('0200');
+        //var nowDate = moment('2014-09-16 12:12').zone('0200');
         var diffWithEnd = endDate.diff(nowDate);
-        console.log(diffWithEnd);
-        $scope.timeToEndHours = moment.duration(diffWithEnd).get('hours');
-        $scope.timeToEndMinutes = moment.duration(diffWithEnd).get('minutes');
+        console.log(action.end);
+        $scope.timeCount = moment.utc(diffWithEnd).format('HH[h]mm');
 
-        $scope.percentComplete = diffWithEnd/parseInt(action.timeClose)*100;
+        $scope.percentComplete = 100-(diffWithEnd/parseInt(action.timeClose)*100);
         console.log(action.timeClose);
 
         // middle brige top (20px to 60px)
