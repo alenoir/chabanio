@@ -311,13 +311,17 @@ section {
   z-index: 30;
   .person-wrapper {
     margin: auto;
-    max-width:560px;
+    //max-width:560px;
     height:230px;
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
+
+
     .person {
+      
+
       text-align:center;
-      margin:0 30px;
+      padding: 0 60px;
       .avatar {
 
       }
@@ -345,6 +349,22 @@ section {
   }
     
 }
+
+@media (max-width: 750px) { 
+  .about .person-wrapper .person {
+    float:none !important;
+  }
+  .about .person-wrapper {
+    height:470px;
+  }
+  .wrapper-social-button {
+    display:none;
+  }
+  .content .answer-wrapper .answer .phrase {
+    margin-bottom:30px;
+  }
+}
+
 .fa-anchor {
   color:#FFFFFF;
   &.circled {

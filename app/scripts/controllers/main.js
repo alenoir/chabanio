@@ -27,7 +27,8 @@ angular.module('instamozappApp')
          updateURL: false,
          loop: true,
          keyboard: true,
-         direction: 'vertical'
+         direction: 'vertical',
+         responsiveFallback: 600
       });
     });
 
