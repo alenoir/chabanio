@@ -25,7 +25,7 @@ angular.module('instamozappApp')
          animationTime: 500, 
          pagination: false,
          updateURL: false,
-         loop: true,
+         loop: false,
          keyboard: true,
          direction: 'vertical',
          responsiveFallback: 600
