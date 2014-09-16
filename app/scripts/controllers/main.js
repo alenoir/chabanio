@@ -89,11 +89,9 @@ angular.module('instamozappApp')
         var endDate = moment(action.end).zone('0200');
         //var nowDate = moment('2014-09-16 12:12').zone('0200');
         var diffWithEnd = endDate.diff(nowDate);
-        console.log(action.end);
         $scope.timeCount = moment.utc(diffWithEnd).format('HH[h]mm');
 
         $scope.percentComplete = 100-(diffWithEnd/parseInt(action.timeClose)*100);
-        console.log(action.timeClose);
 
         // middle brige top (20px to 60px)
 
@@ -119,5 +117,4 @@ angular.module('instamozappApp')
       }
     }
 
-    //console.log($scope.actions);
   });
