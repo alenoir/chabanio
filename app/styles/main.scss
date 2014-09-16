@@ -96,6 +96,12 @@ section {
         background: #16c495;
       }
     }
+    &.warning {
+      background-color: #E8B34C;
+      .progress {
+        background: #16c495;
+      }
+    }
     &.closed {
       background-color: #d15125;
     }
@@ -178,6 +184,18 @@ section {
       }
 
     }
+    &.warning {
+
+      background: #db9E29;
+      .progress {
+        background: #db9E29;
+        border-color:  #A65702;
+        .progress-bar {
+          background:  #A65702;
+        }
+      }
+
+    }
     &.closed {
       background: #c44316;
     }
@@ -207,6 +225,7 @@ section {
     .fa-anchor {
       position: relative;
       margin-top:5px;
+      
     }
     .dashed-content {
       height:65%;
@@ -229,6 +248,15 @@ section {
       }
       .fa-anchor {
         background: #139370;
+      }
+    }
+    &.warning {
+      background:  #db9E29;
+      .dashed-content::after {
+        border-left: 2px dashed #A65702;
+      }
+      .fa-anchor {
+        background: #A65702;
       }
     }
     &.closed {
@@ -391,7 +419,7 @@ section {
   &.circled {
     border-radius: 50%;
     background-color:  #d15125;
-    padding: 15px 15px 15px 17px;
+    padding: 15px 15px 15px 16px;
   }
 }
 

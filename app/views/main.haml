@@ -1,6 +1,6 @@
 %div.main#fullpage(ng-controller="MainCtrl")
   %div.section      
-    %div.content(ng-hide="isOpen")
+    %div.content(ng-show="state == 'closed'")
       %div.bridge-wrapper.closed
         %div.bridge
           %img.bridge-closed(ng-src="images/bridge-closed.png")
@@ -22,7 +22,29 @@
         %p.fa.fa-anchor.circled
         %div.dashed-content
 
-    %div.content.opened(ng-show="isOpen")
+    %div.content(ng-show="state == 'warning'")
+      %div.bridge-wrapper.warning
+        %div.bridge
+          %img.bridge-warning(ng-src="images/bridge-warning.png")
+      %div.answer-wrapper.warning
+        %div.answer
+          %h1.title OUI
+          %p.phrase LE PONT CHABAN-DELMAS EST Ouvert mais
+          %div.loader
+            %div.progress 
+              %div.text-wrapper
+                %p.text 
+                  %i.fa.fa-warning
+                  &nbsp;&nbsp;&nbsp;
+                  Fermeture dans {{ timeCount }}
+              %div.progress-bar(role="progressbar" aria-valuenow="{{ percentComplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentComplete }}%;")
+      %div.boat-wrapper.warning
+        %p.text Prochain Bateau
+        %p.boat-name {{ boatNames.join(' et ') }}
+        %p.fa.fa-anchor.circled
+        %div.dashed-content
+
+    %div.content.opened(ng-show="state == 'opened'")
       %div.bridge-wrapper.opened
         %div.bridge
           %img.bridge-closed(ng-src="images/bridge-open.png")

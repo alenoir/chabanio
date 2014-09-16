@@ -50,9 +50,9 @@ angular.module('instamozappApp')
   })
   .controller('MainCtrl', function ($scope, Restangular) {
     moment.locale('fr');
-    $scope.isOpen = true;
+    $scope.state = 'opened';
     var nowDate = moment();
-    //var nowDate = moment('2014-10-04 16:12');
+    //var nowDate = moment('2014-09-17 11:46');
 
     $(function () {
       $('.main').onepage_scroll({
@@ -83,7 +83,7 @@ angular.module('instamozappApp')
     Restangular.one('actions/statenow').get().then(function(action) {
       $scope.state = action.state;
       if(action.state === 'closed') {
-        $scope.isOpen = false;
+        $scope.state = 'closed';
         $scope.answer = 'non';
         $scope.phrase = 'Le pont Chaban-Delmas est fermé';
         var endDate = moment(action.end).zone('0200');
@@ -98,8 +98,24 @@ angular.module('instamozappApp')
         //$scope.topMiddleBridge = 60-(40*$scope.percentComplete);
 
       }
+      else if(action.state === 'warning') {
+        $scope.state = 'warning';
+        $scope.answer = 'warning';
+        $scope.phrase = 'Le pont Chaban-Delmas est ouvert';
+        var endDate = moment(action.begin).zone('0200');
+        //var nowDate = moment('2014-09-16 12:12').zone('0200');
+        var diffWithEnd = endDate.diff(nowDate);
+        $scope.timeCount = moment.utc(diffWithEnd).format('HH[h]mm');
+
+        $scope.percentComplete = 100-(diffWithEnd/parseInt(3600000)*100);
+
+        // middle brige top (20px to 60px)
+
+        //$scope.topMiddleBridge = 60-(40*$scope.percentComplete);
+
+      }
       else {
-        $scope.isOpen = true;
+        $scope.state = 'opened';
         $scope.answer = 'oui';
         $scope.phrase = 'Le pont Chaban Delams est ouvert';
       }
