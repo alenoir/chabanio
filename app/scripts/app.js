@@ -28,7 +28,6 @@ angular
      // use the shortcut in the initialize method directly.
      FacebookProvider.init('599110736865930');
   })
-
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
