@@ -350,6 +350,21 @@ section {
     
 }
 
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  #uservoice {
+    color:  rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin:30px;
+  }
+  #uservoice:hover {
+    color:  rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+  }
+
+}
 @media (max-width: 750px) { 
   .about .person-wrapper .person {
     float:none !important;
