@@ -28,6 +28,11 @@ angular
      // use the shortcut in the initialize method directly.
      FacebookProvider.init('599110736865930');
   })
+  .config(['$locationProvider', function($locationProvider) {
+      $locationProvider.html5Mode(true);
+      $locationProvider.hashPrefix('!');
+    }
+  ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
