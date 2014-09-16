@@ -1,0 +1,6 @@
+{"name":"newrelic","hostname":"mbp-de-antoine.home","pid":30171,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-09-16T11:33:23.809Z","v":0}
+{"name":"newrelic","hostname":"mbp-de-antoine.home","pid":30171,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/768038/applications/3833272","time":"2014-09-16T11:33:27.828Z","v":0}
+{"name":"newrelic","hostname":"mbp-de-antoine.home","pid":30171,"component":"collector_api","level":30,"msg":"Connected to collector-127.newrelic.com:443 with agent run ID 1500829480.","time":"2014-09-16T11:33:27.829Z","v":0}
+{"name":"newrelic","hostname":"mbp-de-antoine.home","pid":30178,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-09-16T11:34:06.747Z","v":0}
+{"name":"newrelic","hostname":"mbp-de-antoine.home","pid":30178,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/768038/applications/3833272","time":"2014-09-16T11:34:08.758Z","v":0}
+{"name":"newrelic","hostname":"mbp-de-antoine.home","pid":30178,"component":"collector_api","level":30,"msg":"Connected to collector-127.newrelic.com:443 with agent run ID 1500830600.","time":"2014-09-16T11:34:08.758Z","v":0}
