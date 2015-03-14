@@ -18,7 +18,9 @@ angular
     'ngTouch',
     'restangular',
     'config',
-    'facebook'
+    'facebook',
+    'parse-angular',
+    'ParseServices'
   ])
   .config(function(RestangularProvider, ENV) {      
     RestangularProvider.setBaseUrl(ENV.api_endpoint);
@@ -41,4 +43,10 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+
+    
+  })
+  .run(['ParseSDK', function(ParseService) {
+    console.log('ParseSDK');
+  }]);
+

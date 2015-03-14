@@ -15,40 +15,17 @@ angular.module('instamozappApp')
   })
   .controller('FooterCtrl', function ($scope) {
 
-    UserVoice.push(['set', {
-      accent_color: '#808283',
-      trigger_color: 'white',
-      trigger_background_color: 'rgba(46, 49, 51, 0.6)'
-    }]);
+    // // Add default trigger to the bottom-right corner of the window:
+    // //UserVoice.push(['addTrigger', { mode: 'smartvote', trigger_position: 'bottom-right' }]);
 
-    // Identify the user and pass traits
-    // To enable, replace sample data with actual user traits and uncomment the line
-    UserVoice.push(['identify', {
-      //email:      'john.doe@example.com', // User’s email address
-      //name:       'John Doe', // User’s real name
-      //created_at: 1364406966, // Unix timestamp for the date the user signed up
-      //id:         123, // Optional: Unique id of the user (if set, this should not change)
-      //type:       'Owner', // Optional: segment your users by type
-      //account: {
-      //  id:           123, // Optional: associate multiple users with a single account
-      //  name:         'Acme, Co.', // Account name
-      //  created_at:   1364406966, // Unix timestamp for the date the account was created
-      //  monthly_rate: 9.99, // Decimal; monthly rate of the account
-      //  ltv:          1495.00, // Decimal; lifetime value of the account
-      //  plan:         'Enhanced' // Plan name for the account
-      //}
-    }]);
+    // // Or, use your own custom trigger:
+    // UserVoice.push(['addTrigger', '#uservoice', { mode: 'smartvote' }]);
 
-    // Add default trigger to the bottom-right corner of the window:
-    //UserVoice.push(['addTrigger', { mode: 'smartvote', trigger_position: 'bottom-right' }]);
-
-    // Or, use your own custom trigger:
-    UserVoice.push(['addTrigger', '#uservoice', { mode: 'smartvote' }]);
-
-    // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
-    UserVoice.push(['autoprompt', {}]);
+    // // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+    // UserVoice.push(['autoprompt', {}]);
   })
   .controller('MainCtrl', function ($scope, Restangular) {
+
     moment.locale('fr');
     $scope.state = 'opened';
     var nowDate = moment();
@@ -68,68 +45,95 @@ angular.module('instamozappApp')
     });
 
     $scope.state = 'default';
-    Restangular.all('actions/next').getList().then(function(actions) {
+
+    var d = new Date();
+    var todaysDate = new Date(d.getTime()); 
+    var datenowOneHour = new Date(moment().add(1, 'hours'));
+
+    console.log(todaysDate);
+    console.log(datenowOneHour);
+
+    var query = new Parse.Query("Action");
+    query.greaterThanOrEqualTo( "begin", todaysDate );
+    query.find()
+    .then(function(actions){
+      console.log(actions[0].get('boatName'))
       $scope.actions = actions;
-      actions[0].boatNames = actions[0].boatName.split(' - ');
-      actions[0].date = moment(actions[0].begin).locale('fr').format('D MMMM');
-      actions[0].timeBegin = moment(actions[0].begin).format('HH[h]mm');
-      actions[0].timeEnd = moment(actions[0].end).format('HH[h]mm');
+      actions[0].boatName = actions[0].get('boatName');
+      actions[0].boatNames = actions[0].get('boatName').split(' - ');
+      actions[0].date = moment(actions[0].get('begin')).locale('fr').format('D MMMM');
+      actions[0].timeBegin = moment(actions[0].get('begin')).format('HH[h]mm');
+      actions[0].timeEnd = moment(actions[0].get('end')).format('HH[h]mm');
       $scope.nextBoat = actions[0];
 
       buildTimeline(actions);
     });
 
+    var query = new Parse.Query("Action");
+    query.lessThanOrEqualTo( "begin", todaysDate );
+    query.greaterThanOrEqualTo( "end", todaysDate );
+    query.first()
+    .then(function(action){
+      console.log(action);
+      if (action == undefined) {
+        // search on hour
+        var query = new Parse.Query("Action");
+        query.lessThanOrEqualTo( "begin", datenowOneHour );
+        query.greaterThanOrEqualTo( "end", datenowOneHour );
+        query.first()
+        .then(function(action){
+          if (action == undefined) {
+            // opened
+            
+            $scope.state = 'opened';
+            $scope.answer = 'oui';
+            $scope.phrase = 'Le pont Chaban Delams est ouvert';
 
-    Restangular.one('actions/statenow').get().then(function(action) {
-      $scope.state = action.state;
-      if(action.state === 'closed') {
+          } else {
+            // warning
+            
+            $scope.state = 'warning';
+            $scope.answer = 'warning';
+            $scope.phrase = 'Le pont Chaban-Delmas est ouvert';
+            var endDate = moment(action.get('begin')).zone('0200');
+            //var nowDate = moment('2014-09-16 12:12').zone('0200');
+            var diffWithEnd = endDate.diff(nowDate);
+            $scope.timeCount = moment.utc(diffWithEnd).format('HH[h]mm');
+
+            $scope.percentComplete = 100-(diffWithEnd/parseInt(3600000)*100);
+
+            $scope.begin = action.get('begin');
+            $scope.end = action.get('end');
+            $scope.boatName = action.get('boatName');
+          }
+
+        })
+      } else {
+        // close
+        
         $scope.state = 'closed';
         $scope.answer = 'non';
         $scope.phrase = 'Le pont Chaban-Delmas est fermé';
-        var endDate = moment(action.end).zone('0200');
+        var endDate = moment(action.get('end')).zone('0200');
         //var nowDate = moment('2014-09-16 12:12').zone('0200');
         var diffWithEnd = endDate.diff(nowDate);
         $scope.timeCount = moment.utc(diffWithEnd).format('HH[h]mm');
 
         $scope.percentComplete = 100-(diffWithEnd/parseInt(action.timeClose)*100);
 
-        // middle brige top (20px to 60px)
-
-        //$scope.topMiddleBridge = 60-(40*$scope.percentComplete);
-
+        $scope.begin = action.get('begin');
+        $scope.end = action.get('end');
+        $scope.boatName = action.get('boatName');
       }
-      else if(action.state === 'warning') {
-        $scope.state = 'warning';
-        $scope.answer = 'warning';
-        $scope.phrase = 'Le pont Chaban-Delmas est ouvert';
-        var endDate = moment(action.begin).zone('0200');
-        //var nowDate = moment('2014-09-16 12:12').zone('0200');
-        var diffWithEnd = endDate.diff(nowDate);
-        $scope.timeCount = moment.utc(diffWithEnd).format('HH[h]mm');
-
-        $scope.percentComplete = 100-(diffWithEnd/parseInt(3600000)*100);
-
-        // middle brige top (20px to 60px)
-
-        //$scope.topMiddleBridge = 60-(40*$scope.percentComplete);
-
-      }
-      else {
-        $scope.state = 'opened';
-        $scope.answer = 'oui';
-        $scope.phrase = 'Le pont Chaban Delams est ouvert';
-      }
-      $scope.begin = action.begin;
-      $scope.end = action.end;
-      $scope.boatNames = action.boatNames;
     });
 
     function buildTimeline(actions) {
 
       for(var i=0;i<actions.length;i++) {
-        actions[i].date = moment(actions[i].begin).format('D MMMM');
-        actions[i].timeStart = moment(actions[i].begin).format('HH[h]mm');
-        actions[i].timeEnd = moment(actions[i].end).format('HH[h]mm');
+        actions[i].boatName = actions[i].get('boatName');
+        actions[i].date = moment(actions[i].get('begin')).format('D MMMM');
+        actions[i].timeStart = moment(actions[i].get('begin')).format('HH[h]mm');
+        actions[i].timeEnd = moment(actions[i].get('end')).format('HH[h]mm');
       }
     }
 
